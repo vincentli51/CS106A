@@ -14,109 +14,69 @@ import stanford.karel.*;
 
 public class MidpointFindingKarel extends SuperKarel {
 	
-//	
-//	public void run() {
-//		for (int i = 10; i >= 0; i--) {
-//			while (frontIsClear()) {
-//				move();
-//			}
-//			turnAround();
-//		}
-//	}
-//}
-//	
-//	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public void run() {
-		for (int i = 0; i < 10; i++) {
-			if (frontIsClear()) {
-				move();
-			}
+		while (noBeepersPresent()) {
+			moveToEnd();
+			shrinkBoundary();
+			safeMove();
 		}
 		turnAround();
-		for (int i = 0; i < 9; i++) {
-			if (frontIsClear()) {
-				move();
-			}
+		pickBeeper();
+		safeMove();
+		if (noBeepersPresent()) {
+			putBeeper();
 		}
-		turnAround();
-		for (int i = 0; i < 8; i++) {
-			if (frontIsClear()) {
-				move();
-			}
-		}
-		turnAround();
-		for (int i = 0; i < 7; i++) {
-			if (frontIsClear()) {
-				move();
-			}
-		}
-		turnAround();
-		for (int i = 0; i < 6; i++) {
-			if (frontIsClear()) {
-				move();
-			}
-		}
-		turnAround();
-		for (int i = 0; i < 5; i++) {
-			if (frontIsClear()) {
-				move();
-			}
-		}
-		turnAround();
-		for (int i = 0; i < 4; i++) {
-			if (frontIsClear()) {
-				move();
-			}
-		}
-		turnAround();
-		for (int i = 0; i < 3; i++) {
-			if (frontIsClear()) {
-				move();
-			}
-		}
-		turnAround();
-		for (int i = 0; i < 2; i++) {
-			if (frontIsClear()) {
-				move();
-			}
-		}
-		turnAround();
-		for (int i = 0; i < 1; i++) {
-			if (frontIsClear()) {
-				move();
-			}
-		}
-		putBeeper();
 	}
+	
+	private void safeMove() {
+		if (frontIsClear()) {
+			move();
+		}
+	}
+	
+	private void moveToEnd() {
+		while (frontIsClear() && noBeepersPresent()) {
+			move();
+		}
+	}
+	
+	private void shrinkBoundary() {
+		turnAround();
+		if (noBeepersPresent()) {
+			putBeeper();
+		} else {
+			pickBeeper();
+			move();
+			if (noBeepersPresent()) {
+				putBeeper();
+			}
+		}
+	}
+		
+		
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
