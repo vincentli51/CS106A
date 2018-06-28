@@ -31,12 +31,12 @@ public class StoneMasonKarel extends SuperKarel {
 		}
 		toDo();
 	}
-		
-	 /**
-	  * Karel fills the avenue
-	  * @precondition Karel is facing East at the bottom of the avenue
-	  * @postcondition Karel is still facing East at the bottom of the avenue
-	  */
+
+	/**
+	 * Karel fills the avenue
+	 * @precondition Karel is facing East at the bottom of the avenue
+	 * @postcondition Karel is still facing East at the bottom of the avenue
+	 */
 	private void toDo() {
 		turnLeft();
 		if (frontIsBlocked()) {
@@ -56,12 +56,12 @@ public class StoneMasonKarel extends SuperKarel {
 		}
 		turnLeft();
 	}
-	
-	 /**
-	  *If there are no beeper present in the corner place a beeper
-	  *@precondition no beeper 
-	  *@postcondition beeper is placed
-	  */
+
+	/**
+	 *If there are no beeper present in the corner place a beeper
+	 *@precondition no beeper 
+	 *@postcondition beeper is placed
+	 */
 	private void beeperAbsent() {
 		if (noBeepersPresent()) {
 			putBeeper();

@@ -15,7 +15,7 @@ public class CheckerboardKarel extends SuperKarel {
 		while (frontIsClear()) {
 			while (frontIsClear()) {
 				oneLine();
-				}		
+			}		
 			if (frontIsBlocked()) {
 				turnRight();
 				if (frontIsClear()) {
@@ -44,35 +44,32 @@ public class CheckerboardKarel extends SuperKarel {
 			}
 		}
 	}
-	
-	
+
+
 
 	private void oneLine() {
-			while (frontIsClear()) {
-				movingForward();
-			}
-			
-			if (frontIsBlocked()) {
-				turnAround();
-			}
-			if (frontIsClear()) {
-				move();
-			}
-			if (noBeepersPresent() && frontIsClear()) {
-				turnAround();
-				move();
-				putBeeper();
-				turnAround();
-			} else {
-				move();
-			}
-			while (frontIsClear()) {
-				move();
-			}
+		while (frontIsClear()) {
+			movingForward();
+		}
+
+		if (frontIsBlocked()) {
+			turnAround();
+		}
+		if (frontIsClear()) {
+			move();
+		}
+		if (noBeepersPresent() && frontIsClear()) {
+			turnAround();
+			move();
+			putBeeper();
+			turnAround();
+		} else {
+			move();
+		}
+		while (frontIsClear()) {
+			move();
+		}
 	}
-	
-	
-	
 	private void movingForward() {
 		while (noBeepersPresent()) {
 			putBeeper();
@@ -83,87 +80,5 @@ public class CheckerboardKarel extends SuperKarel {
 		if (frontIsClear()) {
 			move();
 		}
-		
-
-	}
-		
-		
-		
+	}		
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-		
-	
-	
-//	public void run() {
-//		for (int i=0;i<4;i++) {
-//			doubleStreets();
-//		}
-//	}
-//	
-//	private void doubleStreets() {
-//		oddStreets();
-//		evenStreets();
-//	}
-//	
-//	private void oddStreets() {
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		turnAround();
-//		for (int i=0; i<6;i++) {
-//			move();
-//		}
-//		turnRight();
-//		move();
-//	}
-//		
-//	private void evenStreets() {
-//		turnRight();
-//		move();
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		turnAround();
-//		for (int i=0; i<7;i++) {
-//			move();
-//		}
-//		turnRight();
-//		if (frontIsClear()) {
-//			move();
-//			turnRight();
-//		}
-//	}
-//}
-//	
-
-
-	
-

@@ -11,7 +11,7 @@
 import stanford.karel.*;
 
 public class CollectNewspaperKarel extends Karel {
-	
+
 	/**
 	 * Karel leaves her house to pick up the beeper then re-enters house and places the beeper in the top left corner
 	 * @precondition Karel is inside her house in the top left corner facing East
@@ -23,7 +23,7 @@ public class CollectNewspaperKarel extends Karel {
 		enterHouse();
 		putBeeper();
 	}
-	
+
 	/**
 	 * Karel leaves her house 
 	 * @precondition Karel is inside her house in the top left corner facing East
@@ -37,7 +37,7 @@ public class CollectNewspaperKarel extends Karel {
 		turnLeft();
 		move();
 	}
-	
+
 	/**
 	 * Karel re-enters the house from outside
 	 * @precondition Karel is outside her door facing East
@@ -52,7 +52,7 @@ public class CollectNewspaperKarel extends Karel {
 		move();
 		turnRight();
 	}
-	
+
 	/**
 	 * Turns Karel around 180 degrees
 	 */
@@ -60,7 +60,7 @@ public class CollectNewspaperKarel extends Karel {
 		turnLeft();
 		turnLeft();
 	}
-	
+
 	/**
 	 * Turns Karel 90 degrees clockwise
 	 */
