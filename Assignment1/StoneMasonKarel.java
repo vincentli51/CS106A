@@ -20,13 +20,12 @@ public class StoneMasonKarel extends SuperKarel {
 	public void run() {
 		repairAvenue();
 		while (frontIsClear()) {
-			for (int i=0; i < 4;i++) {
+			for (int i = 0; i < 4; i++) {
 				move();	
 			}
 			repairAvenue();
 		}		
 	}
-
 		
 	 /**
 	  * Karel fills the avenue

@@ -95,8 +95,8 @@ public class CheckerboardKarel extends SuperKarel {
 	 * @postcondition Karel is at max 2 avenues down in the direction it was facing
 	 */
 	private void putBeeperAndSkip() {
-		while (noBeepersPresent()) {
-			putBeeper();
+		if (noBeepersPresent()) {
+		    putBeeper();
 		}
 		if (frontIsClear()) {
 			move();
