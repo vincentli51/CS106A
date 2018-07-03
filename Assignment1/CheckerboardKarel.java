@@ -20,7 +20,7 @@ public class CheckerboardKarel extends SuperKarel {
 	public void run() {
 		putBeeper();
 		while (frontIsClear()) {
-			oneLine();
+			fillsOneLine();
 			turnRight();
 			if (frontIsClear()) {
 				move();
@@ -31,7 +31,7 @@ public class CheckerboardKarel extends SuperKarel {
 				if (noBeepersPresent()) {
 					putBeeper();
 				}
-				oneLine();
+				fillsOneLine();
 			}
 			if (noBeepersPresent()) {
 				turnRight();
@@ -43,7 +43,7 @@ public class CheckerboardKarel extends SuperKarel {
 		}
 		turnLeft();
 		if ((frontIsClear()) && (beepersPresent())) {	
-			oneLine();
+			fillsOneLine();
 		}
 	}
 
@@ -52,15 +52,15 @@ public class CheckerboardKarel extends SuperKarel {
 	 * @precondition Karel is facing the direction of a street 
 	 * @postcondition Karel is in the same spot she started in, but looking the opposite direction
 	 */
-	private void oneLine() {
+	private void fillsOneLine() {
 		while (frontIsClear()) {
-			movingForward();
+			putBeeperAndSkip();
 		}
 		turnAround();
 		if (frontIsClear()) {
 			move();
 		}
-		checkOK();
+		safeMove();
 		while (frontIsClear()) {
 			move();
 		}
@@ -72,7 +72,7 @@ public class CheckerboardKarel extends SuperKarel {
 	 * @precondition Karel is facing the opposite direction in which it has filled the street
 	 * @postcondition Karel is facing the same direction, but one corner back
 	 */
-	private void checkOK() {
+	private void safeMove() {
 		if (noBeepersPresent() && frontIsClear()) {
 			turnAround();
 			if (frontIsClear()) {
@@ -94,7 +94,7 @@ public class CheckerboardKarel extends SuperKarel {
 	 * @precondition Karel is facing a direction
 	 * @postcondition Karel is at max 2 avenues down in the direction it was facing
 	 */
-	private void movingForward() {
+	private void putBeeperAndSkip() {
 		while (noBeepersPresent()) {
 			putBeeper();
 		}
