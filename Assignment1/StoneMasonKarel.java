@@ -1,12 +1,3 @@
-/*
- * File: StoneMasonKarel.java
- * --------------------------
- * The StoneMasonKarel subclass as it appears here does nothing.
- * When you finish writing it, it should solve the "repair the quad"
- * problem from Assignment 1.  In addition to editing the program,
- * you should be sure to edit this comment so that it no longer
- * indicates that the program does nothing.
- */
 
 import stanford.karel.*;
 
@@ -25,10 +16,11 @@ public class StoneMasonKarel extends SuperKarel {
 			}
 			repairAvenue();
 		}		
+		
 	}
 		
 	 /**
-	  * Karel fills the avenue
+	  *	Karel puts fills the avenue with beepers
 	  * @precondition Karel is facing East at the bottom of the avenue
 	  * @postcondition Karel is still facing East at the bottom of the avenue
 	  */
@@ -57,9 +49,12 @@ public class StoneMasonKarel extends SuperKarel {
 	  * @precondition no beeper 
 	  * @postcondition beeper is placed
 	  */
+	
 	private void safePutBeeper() {
 		if (noBeepersPresent()) {
 			putBeeper();
 		}
-	}
-}
+	}	
+	
+}	
+	

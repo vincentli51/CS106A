@@ -14,52 +14,52 @@ public class CheckerboardKarel extends SuperKarel {
 	/**
 	 * Karel fill the world with beepers in a checkerboard pattern 
 	 * @precondition Karel is facing East on the bottom left corner
-	 * @postcondition Karel is on the same avenue, either on the top facing facing west 
-	 * or on the bottom facing south
+	 * @postcondition Karel is on the same avenue facing the opposite direction she began
 	 */
 	public void run() {
 		putBeeper();
 		while (frontIsClear()) {
-			fillsOneLine();
+			fillsOneStreet();
 			turnRight();
+			allowedMovement();
 			if (frontIsClear()) {
-				move();
 				turnRight();
+				allowedMovement();
 			}
-			if (frontIsClear()) {
-				move();
-				if (noBeepersPresent()) {
-					putBeeper();
-				}
-				fillsOneLine();
-			}
+			fillsOneStreet();
 			if (noBeepersPresent()) {
 				turnRight();
-			}
-			if (frontIsClear()) {
-				move();
+				allowedMovement();
 				turnRight();
 			}
 		}
-		turnLeft();
-		if ((frontIsClear()) && (beepersPresent())) {	
-			fillsOneLine();
+		turnAround();
+		while (frontIsClear()) {
+			move();
 		}
+		turnRight();
+		if (noBeepersPresent()) {
+			allowedMovement();
+		}
+		if (noBeepersPresent()) {
+			putBeeper();
+		}
+		fillsOneStreet();
 	}
+	
+	
 
 	/**
-	 * Karel fills a stret with beepers in a pattern.
+	 * Karel fills a street with beepers in a pattern.
 	 * @precondition Karel is facing the direction of a street 
 	 * @postcondition Karel is in the same spot she started in, but looking the opposite direction
 	 */
-	private void fillsOneLine() {
+	private void fillsOneStreet() {
 		while (frontIsClear()) {
 			putBeeperAndSkip();
 		}
 		turnAround();
-		if (frontIsClear()) {
-			move();
-		}
+		allowedMovement();
 		safeMove();
 		while (frontIsClear()) {
 			move();
@@ -75,22 +75,17 @@ public class CheckerboardKarel extends SuperKarel {
 	private void safeMove() {
 		if (noBeepersPresent() && frontIsClear()) {
 			turnAround();
-			if (frontIsClear()) {
-				move();
-			}
+			allowedMovement();
 			if (noBeepersPresent()) {
 				putBeeper();
 			}
-			turnAround();
-		} else {
-			if (frontIsClear()) {
-				move();
-			}
+			turnAround();	
 		}
 	}
 
+
 	/**
-	 * Karel is placing a beeper then moving twice, if allowed, to achieve the checkboard pattern
+	 * Karel places a beepers then skips the next corner
 	 * @precondition Karel is facing a direction
 	 * @postcondition Karel is at max 2 avenues down in the direction it was facing
 	 */
@@ -105,5 +100,15 @@ public class CheckerboardKarel extends SuperKarel {
 			move();
 		}
 	}
+	
+	/**
+	 * Karel is allowed to move if the front is clear
+	 * @precondition Karel is facing a direction
+	 * @postcondition Karel moves one corner
+	 */
+	private void allowedMovement() {
+		if (frontIsClear()) {
+			move();
+		}
+	}
 }
-
