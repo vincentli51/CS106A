@@ -11,6 +11,7 @@
 import stanford.karel.*;
 
 public class StoneMasonKarel extends SuperKarel {
+	
 	/**
 	 * Karel fills the avenues of 1,5,9 and 13.
 	 * @precondition Karel is facing East in the bottom left corner of the board
