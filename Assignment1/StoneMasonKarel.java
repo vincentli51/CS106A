@@ -18,52 +18,47 @@ public class StoneMasonKarel extends SuperKarel {
 	 * @postcondition Karel is facing East in the bottom right corner of the board
 	 */
 	public void run() {
-		toDo();
-		for (int i=0; i < 4;i++) {
-			move();	
-		}
-		toDo();
-		for (int i=0; i < 4;i++) {
-			move();	
-		}
-		toDo();
-		for (int i=0; i < 4;i++) {
-			move();	
-		}
-		toDo();
+		repairAvenue();
+		while (frontIsClear()) {
+			for (int i=0; i < 4;i++) {
+				move();	
+			}
+			repairAvenue();
+		}		
 	}
+
 		
 	 /**
 	  * Karel fills the avenue
 	  * @precondition Karel is facing East at the bottom of the avenue
 	  * @postcondition Karel is still facing East at the bottom of the avenue
 	  */
-	private void toDo() {
+	private void repairAvenue() {
 		turnLeft();
 		if (frontIsBlocked()) {
-			beeperAbsent();
+			safePutBeeper();
 		}
 		while (noBeepersPresent()) {
 			putBeeper();
 		}
 		while (frontIsClear()) {
-			beeperAbsent();
+			safePutBeeper();
 			move();
 		}
 		turnAround();
 		while (frontIsClear()) {
-			beeperAbsent();
+			safePutBeeper();
 			move();
 		}
 		turnLeft();
 	}
 	
 	 /**
-	  *If there are no beeper present in the corner place a beeper
-	  *@precondition no beeper 
-	  *@postcondition beeper is placed
+	  * If there are no beeper present in the corner place a beeper
+	  * @precondition no beeper 
+	  * @postcondition beeper is placed
 	  */
-	private void beeperAbsent() {
+	private void safePutBeeper() {
 		if (noBeepersPresent()) {
 			putBeeper();
 		}
