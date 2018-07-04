@@ -11,159 +11,104 @@ import stanford.karel.*;
 
 public class CheckerboardKarel extends SuperKarel {
 
+	/**
+	 * Karel fill the world with beepers in a checkerboard pattern 
+	 * @precondition Karel is facing East on the bottom left corner
+	 * @postcondition Karel is on the same avenue facing the opposite direction she began
+	 */
 	public void run() {
+		putBeeper();
 		while (frontIsClear()) {
-			while (frontIsClear()) {
-				oneLine();
-				}		
-			if (frontIsBlocked()) {
-				turnRight();
-				if (frontIsClear()) {
-					move();
-					turnRight();
-				}	
-				if (frontIsClear()) {
-					move();
-				}
-			}
+			fillsOneStreet();
+			turnRight();
+			allowedMovement();
 			if (frontIsClear()) {
-				oneLine();
+				turnRight();
+				allowedMovement();
 			}
+			fillsOneStreet();
 			if (noBeepersPresent()) {
 				turnRight();
-				if (frontIsClear()) {
-					move();
-					turnRight();
-				}	
+				allowedMovement();
+				turnRight();
 			}
 		}
-		if (frontIsBlocked() && noBeepersPresent()) {
-			turnLeft();
-			if (frontIsClear()) {
-				oneLine();
-			}
+		turnAround();
+		while (frontIsClear()) {
+			move();
 		}
-	}
-	
-	
-
-	private void oneLine() {
-			while (frontIsClear()) {
-				movingForward();
-			}
-			
-			if (frontIsBlocked()) {
-				turnAround();
-			}
-			if (frontIsClear()) {
-				move();
-			}
-			if (noBeepersPresent() && frontIsClear()) {
-				turnAround();
-				move();
-				putBeeper();
-				turnAround();
-			} else {
-				move();
-			}
-			while (frontIsClear()) {
-				move();
-			}
-	}
-	
-	
-	
-	private void movingForward() {
-		while (noBeepersPresent()) {
+		turnRight();
+		if (noBeepersPresent()) {
+			allowedMovement();
+		}
+		if (noBeepersPresent()) {
 			putBeeper();
 		}
-		if (frontIsClear()) {
-			move();
-		}
-		if (frontIsClear()) {
-			move();
-		}
-		
-
+		fillsOneStreet();
 	}
-		
-		
-		
+	
+	
+
+	/**
+	 * Karel fills a street with beepers in a pattern.
+	 * @precondition Karel is facing the direction of a street 
+	 * @postcondition Karel is in the same spot she started in, but looking the opposite direction
+	 */
+	private void fillsOneStreet() {
+		while (frontIsClear()) {
+			putBeeperAndSkip();
+		}
+		turnAround();
+		allowedMovement();
+		safeMove();
+		while (frontIsClear()) {
+			move();
+		}
+	}
+
+	/**
+	 * Karel checks if the pattern is correct by taking a step back to the end of the street and 
+	 * checking whether a beeper belong in the spot
+	 * @precondition Karel is facing the opposite direction in which it has filled the street
+	 * @postcondition Karel is facing the same direction, but one corner back
+	 */
+	private void safeMove() {
+		if (noBeepersPresent() && frontIsClear()) {
+			turnAround();
+			allowedMovement();
+			if (noBeepersPresent()) {
+				putBeeper();
+			}
+			turnAround();	
+		}
+	}
+
+
+	/**
+	 * Karel places a beepers then skips the next corner
+	 * @precondition Karel is facing a direction
+	 * @postcondition Karel is at max 2 avenues down in the direction it was facing
+	 */
+	private void putBeeperAndSkip() {
+		if (noBeepersPresent()) {
+		    putBeeper();
+		}
+		if (frontIsClear()) {
+			move();
+		}
+		if (frontIsClear()) {
+			move();
+		}
+	}
+	
+	/**
+	 * Karel is allowed to move if the front is clear
+	 * @precondition Karel is facing a direction
+	 * @postcondition Karel moves one corner
+	 */
+	private void allowedMovement() {
+		if (frontIsClear()) {
+			move();
+		}
+	}
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-		
-	
-	
-//	public void run() {
-//		for (int i=0;i<4;i++) {
-//			doubleStreets();
-//		}
-//	}
-//	
-//	private void doubleStreets() {
-//		oddStreets();
-//		evenStreets();
-//	}
-//	
-//	private void oddStreets() {
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		turnAround();
-//		for (int i=0; i<6;i++) {
-//			move();
-//		}
-//		turnRight();
-//		move();
-//	}
-//		
-//	private void evenStreets() {
-//		turnRight();
-//		move();
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		move();
-//		move();
-//		putBeeper();
-//		turnAround();
-//		for (int i=0; i<7;i++) {
-//			move();
-//		}
-//		turnRight();
-//		if (frontIsClear()) {
-//			move();
-//			turnRight();
-//		}
-//	}
-//}
-//	
-
-
-	
-
