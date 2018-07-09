@@ -13,9 +13,17 @@ public class Countdown extends ConsoleProgram {
 	/** Count down to 0 from this number */
 	private static final int START = 10;
 	
+	/**
+	 * Count down from 10. Ends with Liftoff.
+	 */
 	public void run() {
-
+		for (int i = START ; i > 0; i--) {
+			println(i);
+		}
+		println("Liftoff");
 	}
+}	
+	
 	
 	/*
 	private static final int MAXIMUM_VALUE = 56875;
@@ -85,5 +93,4 @@ public class Countdown extends ConsoleProgram {
 		return salesTax;
 	}
 	*/
-}
 
