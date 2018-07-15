@@ -17,16 +17,33 @@ import java.awt.*;
 public class Pyramid extends GraphicsProgram {
 
 /** Width of each brick in pixels */
-	private static final int BRICK_WIDTH = 30;
+	private static final int BRICK_WIDTH = 50;
 
 /** Height of each brick in pixels */
-	private static final int BRICK_HEIGHT = 12;
+	private static final int BRICK_HEIGHT = 30;
 
 /** Number of bricks in the base of the pyramid */
-	private static final int BRICKS_IN_BASE = 14;
+	private static final int BRICKS_IN_BASE = 12;
 	
 	public void run() {
-		/* You fill this in. */
+		double h = getHeight();
+		double w = getWidth();
+		
+		double startX = w / 2 - BRICK_WIDTH * BRICKS_IN_BASE / 2;
+		double startY = h - BRICK_HEIGHT;
+		
+		for (int j = 0; j < BRICKS_IN_BASE; j++) {
+			layDownRow(startX, startY, BRICKS_IN_BASE - j);
+			startX = startX + BRICK_WIDTH / 2;
+			startY = startY - BRICK_HEIGHT;  
+		}
+	}
+	
+	private void layDownRow(double x, double y, int brickNum) {
+		for (int i = 0; i < brickNum; i++) {
+			GRect rectangle = new GRect(x + (i * BRICK_WIDTH), y, BRICK_WIDTH, BRICK_HEIGHT);
+			add(rectangle);
+		}
 	}
 }
 
