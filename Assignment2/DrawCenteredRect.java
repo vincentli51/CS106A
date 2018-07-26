@@ -9,10 +9,77 @@
 import acm.graphics.*;
 import acm.program.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class DrawCenteredRect extends GraphicsProgram {
 	
+	/**
+	 * Global variables are useful, but potentially dangerous variables to use.
+	 * They can help with doing complex operations that need to maintain state across
+	 * multiple functions, but when used too liberally, they can add unneeded complexity
+	 * that is hard to maintain.
+	 */
+	double x1, y1; // GLOBAL/CLASS VARIABLE
+	GLine rubberBand;
+	
+	public void run() {
+		addMouseListeners();
+		
+		double x = 0;
+		double y = 0;
+		int dX = 6;
+		int dY = 3;
+		GOval oval = new GOval(x, y, 50, 50);
+		while (true) {
+			add(oval);
+			pause(20);
+			remove(oval);
+			
+			// There's a wall at x = 500
+			if (x > 500) {
+				dX = -dX;
+			}
+			// There's a wall at x = 0
+			if (x < 0) {
+				dX = -dX;
+			}
+			// There's a wall at y = 500
+			if (y > 500) {
+				dY = -dY;
+			}
+			// There's a wall at y = 0
+			if (y < 0) {
+				dY = -dY;
+			}
+			
+			x += dX;
+			y += dY;
+			oval = new GOval(x, y, 50, 50);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		x1 = e.getX();
+		y1 = e.getY();
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (rubberBand != null) {
+			remove(rubberBand);
+		}
+		rubberBand = new GLine(x1, y1, e.getX(), e.getY());
+		add(rubberBand);
+	}	
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		rubberBand = null;
+	}
+	
 	/** Size of the centered rect */
+	/*
 	private static final int WIDTH = 350;
 	private static final int HEIGHT = 270;
 
@@ -24,7 +91,7 @@ public class DrawCenteredRect extends GraphicsProgram {
 		rectangle.setFilled(true);
 		add(rectangle);
 	}
-	 
+	*/
 	/*
 		private static final int HEAD_WIDTH = 200;
 		private static final int HEAD_HEIGHT = 400;

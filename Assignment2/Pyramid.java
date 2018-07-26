@@ -39,6 +39,9 @@ public class Pyramid extends GraphicsProgram {
 		}
 	}
 	
+	/*
+	 * Fills a row with a specific amount of bricks.
+	 */
 	private void layDownRow(double x, double y, int brickNum) {
 		for (int i = 0; i < brickNum; i++) {
 			GRect rectangle = new GRect(x + (i * BRICK_WIDTH), y, BRICK_WIDTH, BRICK_HEIGHT);

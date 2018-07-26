@@ -28,18 +28,18 @@ public class CS106ATiles extends GraphicsProgram {
 		GRect rectangle1 = new GRect(leftX, topY, TILE_WIDTH, TILE_HEIGHT);
 		GRect rectangle2 = new GRect(rightX, topY, TILE_WIDTH, TILE_HEIGHT);
 		GRect rectangle3 = new GRect(leftX, bottomY, TILE_WIDTH, TILE_HEIGHT);		
-		GRect rectangle4 = new GRect(rightX, bottomY, TILE_WIDTH, TILE_HEIGHT);
-				
+		GRect rectangle4 = new GRect(rightX, bottomY, TILE_WIDTH, TILE_HEIGHT);		
 		add(rectangle1);	
 		add(rectangle2);
 		add(rectangle3);
 		add(rectangle4);
-		
-		GLabel label1 = new GLabel("CS106A", leftX + TILE_WIDTH/2 - TILE_SPACE,topY + TILE_HEIGHT/2);
-		GLabel label2 = new GLabel("CS106A", rightX + TILE_WIDTH/2 - TILE_SPACE,topY + TILE_HEIGHT/2);
-		GLabel label3 = new GLabel("CS106A", leftX + TILE_WIDTH/2 - TILE_SPACE,bottomY + TILE_HEIGHT/2);
-		GLabel label4 = new GLabel("CS106A", rightX + TILE_WIDTH/2 - TILE_SPACE,bottomY + TILE_HEIGHT/2);
-		
+		GLabel label = new GLabel("Some label");
+		GLabel label1 = new GLabel("CS106A");
+		label1.setCenterX(leftX + TILE_WIDTH/2);
+		label1.setCenterY(topY + TILE_HEIGHT/2);
+		GLabel label2 = new GLabel("CS106A", rightX + TILE_WIDTH/2,topY + TILE_HEIGHT/2);
+		GLabel label3 = new GLabel("CS106A", leftX + TILE_WIDTH/2,bottomY + TILE_HEIGHT/2);
+		GLabel label4 = new GLabel("CS106A", rightX + TILE_WIDTH/2,bottomY + TILE_HEIGHT/2);
 		add(label1);
 		add(label2);
 		add(label3);

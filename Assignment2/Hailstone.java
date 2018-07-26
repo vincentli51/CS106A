@@ -10,15 +10,15 @@ import acm.program.*;
 
 public class Hailstone extends ConsoleProgram {
 	public void run() {
-		int startingNum = readInt("Enter a number:");
+		int currentNum = readInt("Enter a number:");
 		int counter = 0;
-		while (startingNum != 1) {
-			if (startingNum % 2 == 0) {
-				println(startingNum + " is even so I take half: " + (startingNum / 2));
-				startingNum = startingNum / 2;
+		while (currentNum != 1) {
+			if (currentNum % 2 == 0) {
+				println(currentNum + " is even so I take half: " + (currentNum / 2));
+				currentNum = currentNum / 2;
 			} else {
-				println(startingNum + " is odd, so I make 3n + 1: " + (3*startingNum+1));
-				startingNum = 3 * startingNum + 1;
+				println(currentNum + " is odd, so I make 3n + 1: " + (3*currentNum+1));
+				currentNum = 3 * currentNum + 1;
 			}
 			counter = counter + 1;
 		}
