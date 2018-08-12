@@ -22,6 +22,11 @@ public class MouseReporter extends GraphicsProgram {
 	private GLabel label = new GLabel("");
 	
 	public void run() {	
+		GRect rect = new GRect(100, 100, 100, 100);
+		rect.setFillColor(Color.BLUE);
+		rect.setFilled(true);
+		add(rect);
+		
 		// this code already adds the label to the screen!
 		// run it to see what it does.
 		label.setFont("Courier-24");
@@ -33,8 +38,49 @@ public class MouseReporter extends GraphicsProgram {
 		
 		// add the label to the screen!
 		add(label, INDENT, getHeight()/2);
+
+		addMouseListeners();
+		
+		int incremented = addOne(1);
+		println(incremented);
+		//listenForMouseEvents();
 	}
 	
-
+	private int addOne(int num) {
+		return num + 1;
+	}
+	
+	/*
+	private void listenForMouseEvents() {
+		while (true) {
+			MouseEvent event = getMouseEvent();
+			if (event.getID() == MouseEvent.COMPONENT_MOVED) {
+				mouseMoved(event);
+			} else if (event.getID() == MouseEvent.MOUSE_CLICKED) {
+				mouseClicked(event);
+			}
+			..
+			..
+			..
+		}
+	}
+	*/
+	
+	
+	public void mouseMoved(MouseEvent event) {
+		int x = event.getX();
+		int y = event.getY();
+		label.setLabel(x + "," + y);
+		GObject obj = getElementAt(x, y);
+		if (obj != null && obj == label) {
+			label.setColor(Color.RED);
+		} else {
+			label.setColor(Color.BLUE);
+		}
+	}
+	
+	public void mouseClicked(MouseEvent event) {
+		label.setLabel(10 + "," + 10);
+	}
 
 }
