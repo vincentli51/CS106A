@@ -72,12 +72,17 @@ public class Breakout extends GraphicsProgram {
 	
 	private GRect paddle;
 	private GOval ball;
+	private GLabel remainLives;
+	private GLabel bricksDestroyed;
 	private double vX;
 	private double vY;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
-	int bricksHit = 0;
-	int livesLeft = 3;
+	private int bricksHit = 0;
 
+	
+	/*
+	 * 
+	 */
 	public void run() {
 		// Set the window's title bar text
 		setTitle("CS 106A Breakout");
@@ -87,35 +92,72 @@ public class Breakout extends GraphicsProgram {
 		setCanvasSize(CANVAS_WIDTH, CANVAS_HEIGHT);
 
 		/* You fill this in, along with any subsidiary methods */
-		scoreChart();
+		initScoreChart();
 		initBrickRows();
 		initPaddle();
 		initBall();
-		moveBall();
-		gameResult();
 		addMouseListeners();
-	}
-	
-	
-	private void scoreChart() {
-		double x = getWidth() / 2; 
-		GLabel RemainLives = new GLabel("Remaining Live: " + livesLeft, x , BRICK_HEIGHT * 2);
-		add(RemainLives);
-		GLabel bricksDestroyed = new GLabel("Bricks Destroyed: " + bricksHit, x , BRICK_HEIGHT * 4);
-		add(bricksDestroyed);
-	}
-	
-	private void gameResult() {
-		while (bricksHit == NBRICK_COLUMNS * NBRICK_ROWS) {
-			GLabel youWin = new GLabel("You Win!!", getWidth() / 2, getHeight() / 2);
-			add(youWin);
+		
+		for (int i = NTURNS; i > 0; i--) {
+			remainLives.setLabel("Remaining Live: " + i);
+			
+			waitForClick();
+			moveBall();
+			if (isGameWon()) {
+				break;
+			}
+			
+			remove(ball);
+			initBall();
 		}
-		while (livesLeft == 0) {
-			GLabel youLose = new GLabel("You Lose.", getWidth() / 2, getHeight() / 2);
+		remove(ball);
+		
+		if (isGameWon()) {
+			GLabel youWin = new GLabel("You Win!!");
+			youWin.setCenterX(getWidth() / 2);
+			youWin.setCenterY(getHeight() / 2);
+			add(youWin);
+		} else {
+			remainLives.setLabel("Remaining Live: " + 0);
+			GLabel youLose = new GLabel("You Lose.");
+			youLose.setCenterX(getWidth() / 2);
+			youLose.setCenterY(getHeight() / 2);
 			add(youLose);
 		}
 	}
 	
+	/*
+	 * There will be a score board on the center top that has 3 lives and 0 bricks hit. Those numbers will change.
+	 */
+	private void initScoreChart() {
+		double x = getWidth() / 2; 
+		
+		remainLives = new GLabel("Remaining Live: " + NTURNS);
+		remainLives.setCenterX(x);
+		remainLives.setCenterY(BRICK_HEIGHT * 2);
+		add(remainLives);
+		
+		bricksDestroyed = new GLabel("Bricks Destroyed: " + bricksHit);
+		bricksDestroyed.setCenterX(x);
+		bricksDestroyed.setCenterY(BRICK_HEIGHT * 4);
+		add(bricksDestroyed);
+	}
+	
+	/*
+	 * Check if game is won. When the number of bricks hits is equal to the rows * columns.
+	 */
+	private boolean isGameWon() {
+		if (bricksHit == NBRICK_COLUMNS * NBRICK_ROWS) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/*
+	 * The ball moves. When it collides with an object or the walls the ball turns around and continue to move.
+	 * If the bottom x axis is hit, then a life is lost. If a brick is hit the brick hit count increases.
+	 */
 	private void moveBall() {
 		while (true) {
 			ball.move(vX, vY);
@@ -129,20 +171,28 @@ public class Breakout extends GraphicsProgram {
 			GObject collided = detectCollision();
 			if (collided != null) {
 				vY *= -1;
+				
+				if (collided == paddle) {
+					vY = -Math.abs(vY);
+				}
 			}
 			if (collided != paddle && collided != null) {
-				bricksHit =+ bricksHit;
+				bricksHit++;
+				bricksDestroyed.setLabel("Bricks Destroyed: " + bricksHit);
 				remove(collided);
 			}
 			if (getHeight() - BALL_RADIUS * 2 < ball.getY()) {
-				livesLeft =- livesLeft ;
-				remove(ball);
-				initBall();
+				break;
+			}
+			if (isGameWon()) {
+				break;
 			}
 		}
 	}
 	
-	
+	/*
+	 * Checks if any side of the ball made contact with an object or wall.
+	 */
 	private GObject detectCollision() {
 		GObject e1 = getElementAt(ball.getX(), ball.getY());
 		if (e1 != null) {
@@ -163,20 +213,38 @@ public class Breakout extends GraphicsProgram {
 		return null;
 	}
 	
+	/*
+	 * The paddle is put on screen.
+	 */
 	private void initPaddle() {
 		paddle = new GRect(getWidth() / 2, getHeight() - PADDLE_Y_OFFSET, PADDLE_WIDTH, PADDLE_HEIGHT);
 		paddle.setFilled(true);
 		add(paddle);
 	}
-	
+
+	/*
+	 * The ball is put on screen. The ball has a set y rate, but x rate is random. 
+	 */
 	private void initBall() {
 		ball = new GOval(getWidth()/2 - BALL_RADIUS, getHeight()/2 - BALL_RADIUS, BALL_RADIUS * 2, BALL_RADIUS * 2);
 		vY = VELOCITY_Y;
 		vX = rgen.nextDouble(VELOCITY_X_MIN, VELOCITY_X_MAX);
+		if (rgen.nextBoolean()) {
+			vX = -vX;
+		}
 		ball.setFilled(true);
 		add(ball);
 	}
 	
+	/*
+	 * The bricks is put into places. Color of the brick depends on the remainders of any number divided by 10.
+	 * 1-2 is red.
+	 * 3-4 is orange.
+	 * 5-6 is yellow.
+	 * 7-8 is green.
+	 * 9-0 is cyan.
+	 * Pattern continues.
+	 */
 	private void initBrickRows() {
 		double startX = BRICK_SEP * 1.5;
 		double startY = BRICK_Y_OFFSET;
@@ -202,6 +270,9 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
+	/*
+	 * Checks if the mouse is moving. Changes the x value of the paddle.
+	 */
 	public void mouseMoved(MouseEvent event) {
 		double x = event.getX();
 		if (PADDLE_WIDTH/2 < x && x < getWidth() - PADDLE_WIDTH/2) {
